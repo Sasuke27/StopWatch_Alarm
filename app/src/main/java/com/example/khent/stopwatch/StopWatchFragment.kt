@@ -32,7 +32,7 @@ class StopWatchFragment : Fragment() {
     internal var MilliSeconds: Int = 0
     internal var Hour: Int = 0
 
-    internal var flag: Boolean = false
+    internal var flag: Boolean = true
 
     var startButton: ImageButton? = null
 
@@ -60,15 +60,16 @@ class StopWatchFragment : Fragment() {
 
 
         startButton?.setOnClickListener {
-            if (flag) {
+            if (flag==false) {
+                TimeBuff += MillisecondTime
                 handler?.removeCallbacks(runnable)
                 startButton?.setImageResource(R.drawable.ic_play_arrow_black_24dp)
-                flag = false
-            } else {
+                flag = true
+            } else if(flag == true) {
                 startButton?.setImageResource(R.drawable.ic_pause_black_24dp)
                 StartTime = SystemClock.uptimeMillis()
                 handler?.postDelayed(runnable, 0)
-                flag = true
+                flag = false
             }
 
         }
